@@ -1,5 +1,7 @@
 <template>
   <div>
+    <my-header>
+    </my-header>
     <div class="container">
       <div class="columnContainer">
         <p class="subtitle">{{ question }}</p>
@@ -29,7 +31,9 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, SetupContext, ref } from "@vue/composition-api";
+import { defineComponent, SetupContext, ref, reactive } from "@vue/composition-api";
+import { ScoreStore, provideScoreStore, ScoreStoreSymnbol } from '../components/ScoreStore';
+import MyHeader from '~/components/MyHeader.vue'
 
 interface Props {}
 
@@ -62,12 +66,22 @@ let qaData: QAData = {
 };
 
 export default defineComponent({
+
+  components:{
+    MyHeader
+  },
+
+
   setup(props: Props, context: SetupContext) {
     let question = ref("");
     let answer = ref("");
     let userAnswer = ref("");
     let answerDisplay = ref(false);
     let answerButtonDisplay = ref(true);
+
+    let score = reactive(new ScoreStore());
+    score.score = 1;
+    provideScoreStore(score);
 
     let qa = null;
 
@@ -92,6 +106,8 @@ export default defineComponent({
     let answerButtonClicked = () => {
       answerDisplay.value = true;
       answerButtonDisplay.value = false;
+      score.score += 1;
+      console.log("score:"+score.score);
     };
 
     nextQuestion();

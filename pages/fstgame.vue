@@ -3,10 +3,27 @@
     <div class="container">
       <div class="columnContainer">
         <p class="subtitle">{{ question }}</p>
-        <input class="answerform" v-model="userAnswer" type="text" placeholder="回答する" />
-        <button class="myButton" v-if='answerButtonDisplay'  v-on:click="answerButtonClicked">答えを見る</button>
+        <input
+          class="answerform"
+          v-model="userAnswer"
+          type="text"
+          placeholder="回答する"
+        />
+        <button
+          class="myButton"
+          v-if="answerButtonDisplay"
+          v-on:click="answerButtonClicked"
+        >
+          答えを見る
+        </button>
         <p class="subtitle" v-if="answerDisplay">答え {{ answer }}</p>
-        <button class="myButton" v-if="answerDisplay" v-on:click="nextButtonClicked">次の問題</button>
+        <button
+          class="myButton"
+          v-if="answerDisplay"
+          v-on:click="nextButtonClicked"
+        >
+          次の問題
+        </button>
       </div>
     </div>
   </div>
@@ -114,40 +131,82 @@ export default defineComponent({
   display: block;
   font-weight: 300;
   font-size: 100px;
+  font-size: 50px;
+
   color: #35495e;
   letter-spacing: 1px;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+@media screen and (min-width: 769px) {
+  .subtitle {
+    font-weight: 300;
+    font-size: 42px;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+  }
 }
 
-
-.answerform {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-  outline-width: 1px;
-  outline-color: #526488;
-  outline-style: auto;
+@media screen and (max-width: 768px) {
+  .subtitle {
+    font-weight: 300;
+    font-size: 21px;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+  }
 }
 
-.myButton {
-  /* font-weight: 300; */
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-  border-color: green;
-  border-radius: 10px;
-  margin: 0px;
+@media screen and (min-width: 769px) {
+  .answerform {
+    font-weight: 300;
+    font-size: 42px;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+    outline-width: 1px;
+    outline-color: #526488;
+    outline-style: auto;
+  }
+}
 
+@media screen and (max-width: 768px) {
+  .answerform {
+    font-weight: 300;
+    font-size: 21px;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+    outline-width: 1px;
+    outline-color: #526488;
+    outline-style: auto;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .myButton {
+    /* font-weight: 300; */
+    font-size: 42px;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+    border-color: green;
+    border-radius: 10px;
+    margin: 0px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .myButton {
+    /* font-weight: 300; */
+    font-size: 21px;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+    border-color: green;
+    border-radius: 10px;
+    margin: 0px;
+  }
 }
 
 .links {

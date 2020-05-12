@@ -4,24 +4,24 @@
     </my-header>
     <div class="container">
       <div class="columnContainer">
-        <p class="subtitle">{{ question }}</p>
+        <p class="subtitle">{{ state.question }}</p>
         <input
           class="answerform"
-          v-model="userAnswer"
+          v-model="state.userAnswer"
           type="text"
           placeholder="回答する"
         />
         <button
           class="myButton"
-          v-if="answerButtonDisplay"
+          v-if="state.answerButtonDisplay"
           v-on:click="answerButtonClicked"
         >
           答えを見る
         </button>
-        <p class="subtitle" v-if="answerDisplay">答え {{ answer }}</p>
+        <p class="subtitle" v-if="state.answerDisplay">答え {{ state.answer }}</p>
         <button
           class="myButton"
-          v-if="answerDisplay"
+          v-if="state.answerDisplay"
           v-on:click="nextButtonClicked"
         >
           次の問題
@@ -73,11 +73,18 @@ export default defineComponent({
 
 
   setup(props: Props, context: SetupContext) {
-    let question = ref("");
-    let answer = ref("");
-    let userAnswer = ref("");
-    let answerDisplay = ref(false);
-    let answerButtonDisplay = ref(true);
+    const state = reactive({
+      question: "",
+      answer:"",
+      userAnswer:"",
+      answerDisplay:false,
+      answerButtonDisplay:true
+    })
+    // let question = ref("");
+    // let answer = ref("");
+    // let userAnswer = ref("");
+    // let answerDisplay = ref(false);
+    // let answerButtonDisplay = ref(true);
 
     let score = reactive(new ScoreStore());
     score.score = 1;
@@ -92,11 +99,11 @@ export default defineComponent({
         nextQuestion();
         return;
       }
-      answerDisplay.value = false;
-      userAnswer.value = "";
-      answerButtonDisplay.value = true;
-      question.value = qa.question;
-      answer.value = qa.answer;
+      state.answerDisplay = false;
+      state.userAnswer = "";
+      state.answerButtonDisplay = true;
+      state.question = qa.question;
+      state.answer = qa.answer;
     };
 
     let nextButtonClicked = () => {
@@ -104,8 +111,8 @@ export default defineComponent({
     };
 
     let answerButtonClicked = () => {
-      answerDisplay.value = true;
-      answerButtonDisplay.value = false;
+      state.answerDisplay = true;
+      state.answerButtonDisplay = false;
       score.score += 1;
       console.log("score:"+score.score);
     };
@@ -113,11 +120,7 @@ export default defineComponent({
     nextQuestion();
 
     return {
-      userAnswer,
-      question,
-      answer,
-      answerDisplay,
-      answerButtonDisplay,
+      state,
       nextButtonClicked,
       answerButtonClicked
     };
